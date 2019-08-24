@@ -106,7 +106,7 @@ const Store = (() => {
     }
 
     calc () {
-      this.answer = (new Function (`"use strict"; return ${this.tmpFormula}`))()
+      this.answer = (new Function (`"use strict"; return ${this.tmpFormula}`))().toString()
     }
 
     negate () {
@@ -134,8 +134,14 @@ Viewer = {
   },
 
   pushTmpFormulaBox (inputVal) {
-    inputVal = inputVal === '*' ? '×' : inputVal === '/' ? '÷' : inputVal
+    inputVal = this._replaceFormula(inputVal)
     document.getElementById('tmpFormulaBox').innerText += inputVal
+  },
+
+  replaceTmpFormulaBox (inputVal, count = 1) {
+    const text = document.getElementById('tmpFormulaBox').innerText
+    const formula = this._replaceFormula(`${text.slice(0, -count)}${inputVal}`)
+    document.getElementById('tmpFormulaBox').innerText = formula
   },
 
   updateAnswerBox (answer) {
@@ -161,18 +167,16 @@ function ope (inputOpe) {
   if (store.hasOpe) {
     if (store.hasNum2) {
       store.calc()
-      Viewer.pushTmpFormulaBox(`${store.tmpFormulaObj.num2}${inputOpe}`)
-      Viewer.updateTmpFormulaBox('')
+      Viewer.pushTmpFormulaBox(`${store.num2}${inputOpe}`)
       Viewer.updateAnswerBox(store.answer)
       store.initTmpFormula(store.answer, null, inputOpe)
     } else {
       store.setOpe = inputOpe
-      Viewer.updateTmpFormulaBox(store.tmpFormula)
+      Viewer.replaceTmpFormulaBox(inputOpe)
     }
   } else {
     console.log(store.hasNum1)
     if (!store.hasNum1) {
-      console.log('Success')
       store.num1 = store.answer
     }
     store.setOpe = inputOpe
