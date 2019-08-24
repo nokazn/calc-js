@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#f0f0f0">
+    <title>電卓</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="container">
+      <div id="tmpFormulaBox" class="tmp-formula-box"></div>
+      <div id="answerBox" class="answer-box"></div>
+      <table cellspacing="0" border="0">
+        <tr>
+          <td><button name ="AC" class="sub-ope-button" onClick="clearAll()">AC</button></td>
+          <td><button class="sub-ope-button" onClick="cancel()">C</button></td>
+          <td><button class="sub-ope-button" onClick="backSpace()">→</button></td>
+          <td><button class="main-ope-button" onClick="ope('/')">÷</button></td>
+        </tr>
+        <tr>
+          <td><button class="num-button" onClick="num('7')">7</button></td>
+          <td><button class="num-button" onClick="num('8')">8</button></td>
+          <td><button class="num-button" onClick="num('9')">9</button></td>
+          <td><button class="main-ope-button" onClick="ope('*')">×</button></td>
+        </tr>
+        <tr>
+          <td><button class="num-button" onClick="num('4')">4</button></td>
+          <td><button class="num-button" onClick="num('5')">5</button></td>
+          <td><button class="num-button" onClick="num('6')">6</button></td>
+          <td><button class="main-ope-button" onClick="ope('-')">-</button></td>
+        </tr>
+        <tr>
+          <td><button class="num-button" onClick="num('1')">1</button></td>
+          <td><button class="num-button" onClick="num('2')">2</button></td>
+          <td><button class="num-button" onClick="num('3')">3</button></td>
+          <td><button class="main-ope-button" onClick="ope('+')">+</button></td>
+        </tr>
+        <tr>
+          <td><button class="sub-ope-button" onClick="negate()">±</button></td>
+          <td><button class="num-button" onClick="num('0')">0</button></td>
+          <td><button class="sub-ope-button" onClick="num('.')">.</button></td>
+          <td><button class="main-ope-button" onClick="equ()">=</button></td>
+        </tr>
+      </table>
+    </div>
+    <script src="./main.js"></script>
+  </body>
+</html>
