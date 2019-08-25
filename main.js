@@ -16,7 +16,7 @@ const Store = (() => {
       this.answer = '0'
 
       _private(this).hasNum = num => {
-        return /[+-]?\d+/.test(num)
+        return /^[+-]?\d+$/.test(num)
       }
     }
 
@@ -161,6 +161,16 @@ Array.prototype.forEach.call(buttonList, (ele) => {
     console.log(store.tmpFormulaObj)
     console.log(store.tmpFormula)
   })
+})
+
+document.addEventListener('keydown', e => {
+  console.log(e.key)
+  if (/^[0-9]$|\./.test(e.key)) num(e.key)
+  else if (/^\+|-|\*|\/$/.test(e.key)) ope(e.key)
+  else if (e.key === 'Escape') clearAll()
+  else if (e.key === 'Delete') cancel()
+  else if (e.key === 'Backspace') backSpace()
+  else if (e.key === '=') equ()
 })
 
 function ope (inputOpe) {
