@@ -108,7 +108,7 @@ class Store {
   }
 
   get formula () {
-    return `${this.nums.get(0)}${this.ope}${this.nums.get(1)}`
+    return `${this.nums.get(0)}${this.ope}${addBlackets(this.nums.get(1))}`
   }
 
   get isCalculatable () {
@@ -122,6 +122,7 @@ class Store {
 
   calc () {
     if (this.isCalculatable) {
+      console.info(this.formula)
       const answer = (new Function(`"use strict"; return ${this.formula}`))().toString()
       this.nums.enqueue(answer)
       this.opes.dequeue()
@@ -244,8 +245,12 @@ function backSpace () {
 }
 
 function negate () {
-  viewer.num = (Number(viewer.num) * -1).toString()
-  viewer.answerBox = viewer.num
+  viewer.answerBox = (Number(viewer.answerBox) * -1).toString()
+  viewer.num = viewer.answerBox
+}
+
+function addBlackets (val) {
+  return Number(val) < 0 ? `(${val})` : val
 }
 
 const store = new Store()
