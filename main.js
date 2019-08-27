@@ -6,11 +6,12 @@ document.addEventListener('keydown', e => {
   else if (e.key === 'Escape') clearAll()
   else if (e.key === 'Delete') cancel()
   else if (e.key === 'Backspace') backSpace()
-  else if (e.key === '=') equ()
+  else if (e.key === '=' || e.key === 'Enter') equ()
+  else if (e.key === 'F9') negate()
   else return
-  setTimeout(() => {console.log(viewer)}, 0)
-  setTimeout(() => {console.log(store.nums._q)}, 0)
-  setTimeout(() => {console.log(store.opes._q)}, 0)
+  console.log(viewer)
+  console.log(store.nums._q)
+  console.log(store.opes._q)
 })
 
 class Queue {
