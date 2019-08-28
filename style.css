@@ -1,11 +1,14 @@
 body {
   margin: 0;
+  height: 100%;
+  width: 100%;
   min-height: 400px;
+  /* min-width: 600px; */
   background-color: #e6e6e6;
 }
 
 div.container {
-  width: 80vh;
+  width: 100%;
   height: 100vh;
   /* min-width: 400px;
   min-height: 300px; */
@@ -15,24 +18,27 @@ div.answer-box, div.tmp-formula-box {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  box-sizing: border-box;
   width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 div.tmp-formula-box {
-  height: 10%;
+  height: 15vh;
   font-size: 20px;
   color: #a9a9a9;
 }
 
 div.answer-box {
-  height: 15%;
+  height: 20vh;
   font-size: 50px;
   font-weight: bold;
 }
 
 table {
   table-layout: fixed;
-  height: 75%;
+  height: 65vh;
   width: 100%;
 }
 
@@ -46,22 +52,17 @@ button, button:active, button:focus {
   margin: 0;
 }
 
-button:focus-ring {
-
-}
-
-.num-button {
+button.num-button {
   background-color: #fafafa;
   font-size: 24px;
-  font-weight: 500;
-  /* font-weight: bold; */
+  font-weight: bold;
 }
 
 button.main-ope-button, button.sub-ope-button {
   background-color: #f0f0f0
 }
 
-.num-button:hover, button.sub-ope-button:hover {
+button.num-button:hover, button.sub-ope-button:hover {
   background-color: #e6e6e6;
 }
 
@@ -70,8 +71,6 @@ button.main-ope-button:hover {
   color: #d5eeee;
 }
 
-
-
-.num-button:focus {
+button.num-button:focus {
   border-style: none;
 }

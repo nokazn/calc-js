@@ -37,38 +37,9 @@ class Queue {
     return this._q[index]
   }
 
-  // get indexOfLastVal () {
-  //   const index = this._q.indexOf('')
-  //   return (index !== -1 ? index : this.length) - 1
-  // }
-
-  // get lastVal () {
-  //   const index = this.indexOfLastVal
-  //   return this._q[index] || null
-  // }
-
-  // get lastIndexOfEmpty () {
-  //   return this._q.lastIndexOf('')
-  // }
-
-  // get indexOfEmpty () {
-  //   return this._q.indexOf('')
-  // }
-  // get enterableIndex () {
-  //   const reversedIndex = this._q.slice().reverse().findIndex(ele => ele !== '')
-  //   if (reversedIndex === -1) {
-  //     return 0
-  //   } else if (!reversedIndex){
-  //     return -1
-  //   } else {
-  //     return this.length - reversedIndex
-  //   }
-  // }
-
   enqueue (val) {
     if (this._q.slice(-1)[0] === '') {
       this._q[this.length - 1] = val
-      // this._q.splice(-1, 1, val)
     } else {
       this._q.splice(0, 1)
       this._q.push(val)
@@ -123,7 +94,6 @@ class Store {
 
   calc () {
     if (this.isCalculatable) {
-      console.info(this.formula)
       const answer = (new Function(`"use strict"; return ${this.formula}`))().toString()
       this.nums.enqueue(answer)
       this.opes.dequeue()
@@ -144,6 +114,9 @@ class Viewer {
   }
 
   set num (num) {
+    if (this._getDigit(num) > 16) {
+      return
+    }
     if (!this._num) {
       if (num === '0') {
         this._num = ''
@@ -174,11 +147,25 @@ class Viewer {
   }
 
   get answerBox () {
-    return document.getElementById('answerBox').innerText
+    return document.getElementById('answerBox').innerText.replace(/,/g, '')
   }
 
   set answerBox (val) {
-    document.getElementById('answerBox').innerText = val || '0'
+    document.getElementById('answerBox').innerText = this._addCommas(val) || '0'
+  }
+
+  _getDigit (num) {
+    return num.replace('.', '').length
+  }
+
+  _addCommas (num) {
+    const replace = num => {
+      return num.replace(/(^-?(?:\d)+)(\d{3})($|(?:\.|,\d))/, (match, ...p) => {
+        const answer = [[...p][0], ',', ...[...p].slice(1, 3)].join('')
+        return match ? replace(answer) : answer
+      })
+    }
+    return replace(num)
   }
 }
 
@@ -212,7 +199,6 @@ function ope (inputOpe) {
 }
 
 function equ () {
-  // TODO
   if (store.num) {
     if (!store.ope) {
       store.ope = viewer.ope || store.opes.get(0)
@@ -246,6 +232,7 @@ function backSpace () {
 }
 
 function negate () {
+  console.log(viewer.answerBox)
   viewer.answerBox = (Number(viewer.answerBox) * -1).toString()
   viewer.num = viewer.answerBox
 }
