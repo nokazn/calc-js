@@ -1,18 +1,19 @@
 'user strict'
-
-document.addEventListener('keydown', e => {
-  if (/^[0-9]$|\./.test(e.key)) num(e.key)
-  else if (/^\+|-|\*|\/$/.test(e.key)) ope(e.key)
-  else if (e.key === 'Escape') clearAll()
-  else if (e.key === 'Delete') cancel()
-  else if (e.key === 'Backspace') backSpace()
-  else if (e.key === '=' || e.key === 'Enter') equ()
-  else if (e.key === 'F9') negate()
-  else return
-  console.log(viewer)
-  console.log(store.nums._q)
-  console.log(store.opes._q)
-})
+window.onload = () => {
+  document.addEventListener('keydown', e => {
+    if (/^[0-9]$|\./.test(e.key)) num(e.key)
+    else if (/^\+|-|\*|\/$/.test(e.key)) ope(e.key)
+    else if (e.key === 'Escape') clearAll()
+    else if (e.key === 'Delete') cancel()
+    else if (e.key === 'Backspace') backSpace()
+    else if (e.key === '=' || e.key === 'Enter') equ()
+    else if (e.key === 'F9') negate()
+    else return
+    console.log(viewer)
+    console.log(store.nums._q)
+    console.log(store.opes._q)
+  })
+}
 
 class Queue {
   constructor (length) {
@@ -116,8 +117,7 @@ class Viewer {
   set num (num) {
     if (this._getDigit(num) > 16) {
       return
-    }
-    if (!this._num) {
+    } else if (!this._num) {
       if (num === '0') {
         this._num = ''
       } else if (num === '.') {
@@ -213,6 +213,28 @@ function equ () {
   }
 }
 
+function percent () {
+  viewer.answerBox = (Number(viewer.num) / 100).toString()
+  viewer.num = viewer.answerBox
+}
+
+function root () {
+  viewer.answerBox = (Math.sqrt(Number(viewer.num))).toString()
+  viewer.num = viewer.answerBox
+}
+
+function square () {
+  viewer.answerBox = Number(Math.pow(Number(viewer.num), 2)).toString()
+  viewer.num = viewer.answerBox
+}
+
+function reciprocal () {
+  if (viewer.num !== '0'){
+    viewer.answerBox = (1 / Number(viewer.num)).toString().slice(0, 17)
+    viewer.num = viewer.answerBox
+  }
+}
+
 function clearAll () {
   store.init()
   viewer.num = ''
@@ -232,7 +254,6 @@ function backSpace () {
 }
 
 function negate () {
-  console.log(viewer.answerBox)
   viewer.answerBox = (Number(viewer.answerBox) * -1).toString()
   viewer.num = viewer.answerBox
 }
